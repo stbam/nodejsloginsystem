@@ -4,6 +4,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt"); // Add this line
 const Schema = mongoose.Schema;
 
 const mongoDb =
@@ -64,16 +65,24 @@ app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
 app.post("/sign-up", async (req, res, next) => {
 	try {
+	  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+		if (err) {
+		  throw err; // Handle the error appropriately
+		}
+  
 		const user = new User({
-			username: req.body.username,
-			password: req.body.password,
+		  username: req.body.username,
+		  password: hashedPassword,
 		});
+  
 		const result = await user.save();
 		res.redirect("/");
+	  });
 	} catch (err) {
-		return next(err);
+	  return next(err);
 	}
-});
+  });
+  
 
 app.post(
 	"/log-in",
