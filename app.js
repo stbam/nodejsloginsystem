@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const mongoDb =
-	"mongodb+srv://admin:admin@cluster0.uwhbfgl.mongodb.net/authentication?retryWrites=true&w=majority";
+	"mongodb+srv://stbacmtd:Stru5932@cluster0.ox5ftyi.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -92,4 +92,4 @@ app.get("/log-out", (req, res, next) => {
 	});
 });
 
-app.listen(3000, () => console.log("app listening on port 3000!"));
+app.listen(3006, () => console.log("app listening on port 3000!"));
